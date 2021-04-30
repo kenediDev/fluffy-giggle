@@ -71,10 +71,55 @@ class UserSerializer(Base):
         return mail
 
     def update(self, instance, validated_data):
-        pass
+        if self.context['args'] == 'accounts':
+            return self.update_accounts(instance,validated_data)
+        return instance
 
+    def update_accounts(self,instance,validated_data):
+        instance = instance.accounts_set.first()
+        if validated_data.get("avatar"):
+            if instance.avatar:
+                split = str(instance.accounts.avatar).split('/')
+                path = split[len(split) - 1]
+                os.system('rm media/avatar/%s' % path)
+            instance.avatar = validated_data.get('avatar')
+        instance.gender = validated_data.get('gender')
+        instance.phone_numbers = validated_data.get('phone_numbers')
+        instance.save()
+        self.update_location(instance, validated_data)
+        return instance
+
+    def update_location(self,instance, validated_data):
+        instance.location.country = validated_data.get('country')
+        instance.location.province = validated_data.get('province')
+        instance.location.city = validated_data.get('city')
+        instance.location.address = validated_data.get('address')
+        instance.location.save()
+        return instance
+
+class LocationModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = "__all__"
+
+class AccountsModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Accounts
+        fields = "__all__"
+
+    location = serializers.SerializerMethodField("get_location_display")
+
+    def get_location_display(self,info):
+        serializer = LocationModelSerializer(info.location)
+        return serializer.data
 
 class UserModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = "__all__"
+    accounts = serializers.SerializerMethodField("get_accounts_display")
+
+    def get_accounts_display(self,info):
+        serializer = AccountsModelSerializer(info.accounts_set.first())
+        return serializer.data
+

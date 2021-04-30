@@ -1,12 +1,26 @@
-from rest_framework import status, permissions
+from love_user.utils.filters import UserFilter
+from rest_framework import status, permissions, generics, parsers
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
-from django.core.mail import EmailMessage
-from love_user.serializer.user_serializer import UserSerializer, UserModelSerializer
 
+from love_user.serializer.user_serializer import UserSerializer, UserModelSerializer
+from django_filters.rest_framework import DjangoFilterBackend
+
+class UpdateAPIView(APIView):
+    parser_classes = [parsers.MultiPartParser, parsers.JSONParser,]
+    serializer_query = UserSerializer
+
+    def post(self,r):
+        user = r.user
+        serializer = self.serializer_query(user,data=r.data)
+        serializer.context['args'] = 'accounts'
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": _("Accounts has been updated")},status=status.HTTP_200_OK)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 class UserAPIView(APIView):
     permission_classes = [
@@ -24,6 +38,16 @@ class UserAPIView(APIView):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class UserGenericAPIView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserModelSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = UserFilter
+
+    def lists(self,r):
+        queryset = self.get_queryset()
+        serializer = self.serializer_class(queryset,many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class UserModelViewSets(ModelViewSet):
     queryset = User.objects.all()

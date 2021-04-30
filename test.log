@@ -1,0 +1,18 @@
+- User Create : 
+{'message': 'Accounts has been created'}
+- User Detail : 
+{'id': 73, 'accounts': {'id': 50, 'location': {'id': 50, 'country': 'Jordan', 'province': 'Kansas', 'city': 'Benjamintown', 'address': '1057 King Stravenue Apt. 030\nNew Scottport, WA 37152', 'updateAt': '2021-04-30T22:13:43.254620Z'}, 'is_deleted': False, 'createAt': '2021-04-30T22:12:33.524939Z', 'updateAt': '2021-04-30T22:13:43.247933Z', 'avatar': '/media/avatar/image_test_i9NKbgS.jpeg', 'gender': None, 'phone_numbers': '+6288855019', 'user': 73}, 'password': 'pbkdf2_sha256$260000$SQ4WtpaAEdtXHosff4a5TA$bdy4O83CQgFKaWLSX/6HOHuJ8VJm061SVjd4pPO30YQ=', 'last_login': None, 'is_superuser': False, 'username': 'William Smith', 'first_name': '', 'last_name': '', 'email': 'floydryan@yahoo.com', 'is_staff': False, 'is_active': True, 'date_joined': '2021-04-30T22:12:33.331508Z', 'groups': [], 'user_permissions': []}
+- User List Filter : 
+[OrderedDict([('id', 75), ('accounts', {'id': 52, 'location': {'id': 52, 'country': None, 'province': None, 'city': None, 'address': None, 'updateAt': '2021-04-30T22:16:29.710694Z'}, 'is_deleted': False, 'createAt': '2021-04-30T22:16:29.715760Z', 'updateAt': '2021-04-30T22:16:29.715442Z', 'avatar': None, 'gender': 0, 'phone_numbers': None, 'user': 75}), ('password', 'pbkdf2_sha256$260000$xqEDr0QuACDM2LpoKV33w5$iaiMy3qqvFW/POajT00wGSPpiwtidj0S22pifaBOBZE='), ('last_login', None), ('is_superuser', False), ('username', 'Christian Johnson'), ('first_name', ''), ('last_name', ''), ('email', 'pettyheather@gmail.com'), ('is_staff', False), ('is_active', True), ('date_joined', '2021-04-30T22:16:29.519243Z'), ('groups', []), ('user_permissions', [])])]
+- User List : 
+[OrderedDict([('id', 1), ('accounts', {'is_deleted': False, 'updateAt': None, 'avatar': None, 'gender': None, 'phone_numbers': '', 'user': None}), ('password', 'pbkdf2_sha256$260000$mRLcnJIQNNgktk58fl1oX1$VrEXzDgIfJ8udPDFcMnWDcPtzNY7MNl7DuegKXb9nhU='), ('last_login', None), ('is_superuser', False), ('username', 'Bradley Ward'), ('first_name', ''), ('last_name', ''), ('email', 'ycox@hotmail.com'), ('is_staff', False), ('is_active', True), ('date_joined', '2021-04-30T15:29:53.565990Z'), ('groups', []), ('user_permissions', [])]), OrderedDict([('id', 2), ('accounts', {'is_deleted': False, 'updateAt': None, 'avatar': None, 'gender': None, 'phone_numbers': '', 'user': None}), ('password', 'pbkdf2_sha256$260000$htWT9vmdeJSxE96g9vZIoU$ML76KTnITZHYhuBprUArzbKuig/5MHL/RDp6AZ5MAL8='), ('last_login', None), ('is_superuser', False), ('username', 'Julie Johnston'), ('first_name', ''), ('last_name', ''), ('email', 'singletonfrances@hotmail.com'), ('is_staff', False), ('is_active', True), ('date_joined', '2021-04-30T15:32:26.401514Z'), ('groups', []), ('user_permissions', [])])]
+- Token : 
+{'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NSwidXNlcm5hbWUiOiJDaHJpc3RpYW4gSm9obnNvbiIsImV4cCI6MTYxOTgyMTI5MCwiZW1haWwiOiJwZXR0eWhlYXRoZXJAZ21haWwuY29tIiwib3JpZ19pYXQiOjE2MTk4MjA5OTB9.h9DL3zDAwh4aiFHoYwrpaRdW79zUz6KIQeLuxuPuE0c'}
+- Refresh Token : 
+{'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NCwidXNlcm5hbWUiOiJQYXVsIEdvb2R3aW4iLCJleHAiOjE2MTk4MjEyOTAsImVtYWlsIjoic3RldmVuNzdAY2FycmlsbG8uaW5mbyIsIm9yaWdfaWF0IjoxNjE5ODIwODIzfQ.MWaJoddwcHJEO5qtrYD3PenZU8E1xSRjRincDBvEews'}
+- User Reset : 
+{'message': 'Accounts has been reset'}
+- Update Accounts : 
+{'message': 'Accounts has been updated'}
+- Verify Token : 
+{'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NCwidXNlcm5hbWUiOiJQYXVsIEdvb2R3aW4iLCJleHAiOjE2MTk4MjExMjMsImVtYWlsIjoic3RldmVuNzdAY2FycmlsbG8uaW5mbyIsIm9yaWdfaWF0IjoxNjE5ODIwODIzfQ.wS2RJJcCZPn9y3lZVHLOaQ_ziQuug59IpxK7ChCKoI4'}

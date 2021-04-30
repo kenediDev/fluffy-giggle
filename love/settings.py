@@ -13,6 +13,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 TESTING = sys.argv[1] == "test"
 
+if TESTING:
+    with open("test.log","w") as w:
+        w.write("")
+
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -163,7 +167,7 @@ JWT_AUTH = {
     "JWT_ISSUER": None,
     "JWT_ALLOW_REFRESH": True,
     "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(days=7),
-    "JWT_AUTH_HEADER_PREFIX": "JWT",
+    "JWT_AUTH_HEADER_PREFIX": "Bearer",
     "JWT_AUTH_COOKIE": None,
 }
 

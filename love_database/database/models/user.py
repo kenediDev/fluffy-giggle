@@ -1,7 +1,13 @@
 from django.db import models
+from django.utils.translation import gettext as _
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from .base import Base
+
+class AccountsEnum:
+    male = 0
+    female = 1
+    CHOICE = ((male,_("Male")),(female,_("Female")))
 
 class Location(models.Model):
     country = models.CharField(max_length=225, null=True)
@@ -16,6 +22,7 @@ class Location(models.Model):
 
 class Accounts(Base):
     avatar = models.ImageField(upload_to="avatar/")
+    gender = models.IntegerField(choices=AccountsEnum.CHOICE,default=AccountsEnum.male, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     phone_numbers = PhoneNumberField(null=True)
 
