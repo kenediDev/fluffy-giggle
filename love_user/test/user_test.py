@@ -125,7 +125,7 @@ class UserTester(unittest.TestCase):
                 "first_name": fake.name(),
                 "last_name": fake.name(),
                 "avatar": files,
-                "phone_numbers": "+628%s" % (random.randint(929349,999999) * 9 ),
+                "phone_numbers": "+628%s" % (random.randint(929349,999999) * 999 ),
                 "gender": random.randint(0,1),
                 "country": fake.country(),
                 "province": fake.state(),

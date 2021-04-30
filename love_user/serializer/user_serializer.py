@@ -108,6 +108,12 @@ class AccountsModelSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     location = serializers.SerializerMethodField("get_location_display")
+    gender = serializers.SerializerMethodField("get_gender_display")
+
+    def get_gender_display(self,info):
+        if info.gender:
+            return info.get_gender_display()
+        return info.gender
 
     def get_location_display(self,info):
         serializer = LocationModelSerializer(info.location)

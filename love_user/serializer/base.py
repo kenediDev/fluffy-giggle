@@ -1,3 +1,4 @@
+from database.models.user import AccountsEnum
 from rest_framework import serializers
 
 
@@ -18,6 +19,7 @@ class BaseUser(serializers.Serializer):
 class BaseAccounts(serializers.Serializer):
     avatar = serializers.ImageField(required=False)
     phone_numbers = serializers.CharField(max_length=225, required=False)
+    gender = serializers.IntegerField(default=AccountsEnum.male)
 
     class Meta:
         abstract = True
