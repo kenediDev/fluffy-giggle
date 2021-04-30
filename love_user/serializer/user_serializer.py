@@ -7,8 +7,11 @@ from django.db.models import Q
 from django.core.mail import EmailMessage
 import os
 import dotenv
+import re
 
 dotenv.load_dotenv()
+
+r_email = r"^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$"
 
 
 class UserSerializer(Base):
@@ -49,6 +52,9 @@ class UserSerializer(Base):
         )
         create.set_password(validated_data.get("confirm_password"))
         create.save()
+        location = Location()
+        location.save()
+        create.accounts_set.create(location=location)
         return create
 
     def reset_user(self, validated_data):
