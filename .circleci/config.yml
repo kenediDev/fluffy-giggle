@@ -24,4 +24,4 @@ jobs:
             python3 manage.py test
       - store_artifacts:
           path: test-reports/
-          destination: django-react-typescript
+          destination: django_react_typescript

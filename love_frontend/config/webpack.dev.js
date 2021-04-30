@@ -7,6 +7,6 @@ module.exports = merge(common, {
   devtool: "source-map",
   devServer: {
     contentBase: path.join(__dirname, "../dist"),
-    open: 'google chrome'
+    open: "google chrome",
   },
 });
