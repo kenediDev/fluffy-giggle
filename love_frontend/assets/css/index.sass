@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Fira+Sans:wght@300&display=swap')
+@import url('https://use.fontawesome.com/releases/v5.15.3/css/all.css')
+
+$color: #007bff
+
+html,body
+    padding: 0
+    margin: 0
+    font-family: 'Fira Sans', sans-serif 
+
+.noc-navbar
+    height: 75px
+    background-color: white
+    padding-left: 20px
+    padding-right: 20px
+    display: flex
+    align-items: center
+    justify-content: space-between
+    box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75)
+    -webkit-box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75)
+    -moz-box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75)
+    .noc-input
+      width: 400px
+      height: 30px
+      display: flex
+      align-items:center
+      input
+          width: 100% !important
+          box-shadow: 0px 0px 10px -8px rgba(0,0,0,0.75)
+          border: none
+          outline: none
+          padding-left: 15px
+          padding-right: 15px
+          border-bottom-left-radius: 15px
+          border-top-left-radius: 15px
+      .noc-btn-input
+          width: 40px
+          height: 100% !important
+          border: none
+          border-top-right-radius: 10px
+          border-bottom-right-radius: 10px
+          box-shadow: 0px 0px 10px -7px rgba(0,0,0,0.75)
+          cursor: pointer
+    .noc-brand
+        font-weight: bold
+        font-family: 'Dancing Script', cursive
+        font-size: 30px
+        color: tomato
+    .noc-t
+        outline: none
+        border: none
+        cursor: pointer
+        height: 30px
+        width: 100px
+        border-radius: 20px
+        background-color: tomato
+        color: white
+        font-weight: bold
+        box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75)
+        -webkit-box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75)
+        -moz-box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75)
+
+// Authorization
+
+.noc-form
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 100%
+    height: 80vh
+
+
+.noc-authorization
+    background-color: white
+    .noc-field
+        width: 400px
+        height: 30px
+        margin-bottom: 15px
+        display: flex
+        justify-content: center
+        &:last-child
+            display: block
+        input
+            width: 100%
+            height: 30px
+            border: none
+            box-shadow: 0px 0px 10px -7px rgba(0,0,0,0.75)
+            padding-left: 15px
+            padding-right: 15px
+            border-radius: 10px
+            outline: none
+    #noc-field
+        margin-top: 15px
+        display: flex 
+        justify-content: space-around
+        align-items: center
+
+.noc-authorization-btn
+    display: flex
+    margin: auto
+    align-items: center
+    justify-content: center
+    width: 120px
+    height: 30px
+    background-color: tomato
+    border: none
+    box-shadow: 0px 0px 10px -7px rgba(0,0,0,0.75)
+    border-radius: 15px
+    color: white
+    font-weight: bold
+    cursor: pointer
+
+
+.noc-link
+    text-decoration: none
+    color: $color
+
+// Message
+
+.validate
+    position: absolute
+    width: 100%
+    background-color: transparent
+    height: 30px
+    display: flex
+    align-items: center
+    justify-content: center
+    color: white
+    animation: validate 2s forwards
+    .validate-success,
+    .validate-error
+        padding: 6px 20px 6px 20px
+        border-radius: 6px
+    .validate-success
+        background-color: green
+    .validate-error
+        background-color: red
+    .validate-text
+        font-size: 14px
+        
+
+@keyframes validate 
+  from 
+     bottom: -1200px
+  to 
+     bottom: 16px
+    
+
+
+
+.hidden
+    display: none

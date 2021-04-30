@@ -10,10 +10,11 @@ module.exports = merge(common, {
     open: "google chrome",
     historyApiFallback: true,
     bonjour: true,
+    publicPath: "/",
     proxy: [
       {
-        context: ["/api/v1"],
-        target: "http://127.0.0.1:8000",
+        context: ["/api"],
+        target: "http://127.0.0.1:9000",
         secure: false,
       },
     ],
