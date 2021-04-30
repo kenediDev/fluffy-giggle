@@ -1,0 +1,65 @@
+{
+  "name": "Choice your personality tags",
+  "list": [
+    {
+      "name": "Characteristics",
+      "choice": [
+        "Avaiable",
+        "Proactive",
+        "Talented",
+        "Knowledgeable",
+        "Empathetic",
+        "Gentle",
+        "Quiet",
+        "Talkactive",
+        "Hilarious",
+        "Confident",
+        "Energetic",
+        "Easy-going",
+        "Considerate",
+        "Lonely",
+        "Extroverted",
+        "Introvert",
+        "Shy",
+        "Homebody",
+        "Stylish"
+      ]
+    },
+    {
+      "name": "Interests",
+      "choice": [
+        "Tiktok",
+        "Netflix",
+        "Variefly show",
+        "Drama",
+        "Comedy",
+        "Gossip",
+        "Makeup",
+        "Reading",
+        "Instrument",
+        "Entertainment",
+        "K-pop",
+        "Rap",
+        "Healing Music",
+        "Fresh Music",
+        "Popular Music",
+        "Midnight Music",
+        "Mobile Game",
+        "PC Game",
+        "PUBG",
+        "LOL",
+        "PUBG Mobile",
+        "Fitness",
+        "Basketball",
+        "Running",
+        "Swimming",
+        "Marvel",
+        "Romance Movie",
+        "Horror Movie",
+        "Action Movie",
+        "Sci-fi Movie",
+        "Mystery Movie"
+      ]
+    }
+  ]
+}

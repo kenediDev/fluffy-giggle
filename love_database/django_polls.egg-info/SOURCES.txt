@@ -10,6 +10,8 @@ database/migrations/0001_initial.py
 database/migrations/0002_accounts_phone_numbers.py
 database/migrations/0003_accounts_gender.py
 database/migrations/0004_alter_accounts_gender.py
+database/migrations/0005_auto_20210430_2232.py
+database/migrations/0006_auto_20210430_2236.py
 database/migrations/__init__.py
 database/models/__init__.py
 database/models/base.py

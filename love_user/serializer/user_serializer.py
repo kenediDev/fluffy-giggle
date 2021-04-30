@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.utils.translation import gettext as _
-from database.models import Accounts, Location
+from database.models import Accounts, Location, Biodata, Interested
 from django.contrib.auth.models import User
 from love_user.serializer.base import Base
 from django.db.models import Q
@@ -54,7 +54,9 @@ class UserSerializer(Base):
         create.save()
         location = Location()
         location.save()
-        create.accounts_set.create(location=location)
+        bio = Biodata()
+        bio.save()
+        create.accounts_set.create(location=location, bio=bio)
         return create
 
     def reset_user(self, validated_data):
@@ -71,38 +73,77 @@ class UserSerializer(Base):
         return mail
 
     def update(self, instance, validated_data):
-        if self.context['args'] == 'accounts':
-            return self.update_accounts(instance,validated_data)
+        if self.context["args"] == "accounts":
+            instance.first_name = validated_data.get("first_name")
+            instance.last_name = validated_data.get("last_name")
+            instance.save()
+            return self.update_accounts(instance, validated_data)
+        if self.context["args"] == "bio":
+            return self.update_bio(instance.accounts_set.first(), validated_data)
         return instance
 
-    def update_accounts(self,instance,validated_data):
+    def update_accounts(self, instance, validated_data):
         instance = instance.accounts_set.first()
         if validated_data.get("avatar"):
             if instance.avatar:
-                split = str(instance.accounts.avatar).split('/')
+                split = str(instance.accounts.avatar).split("/")
                 path = split[len(split) - 1]
-                os.system('rm media/avatar/%s' % path)
-            instance.avatar = validated_data.get('avatar')
-        instance.gender = validated_data.get('gender')
-        instance.phone_numbers = validated_data.get('phone_numbers')
+                os.system("rm media/avatar/%s" % path)
+            instance.avatar = validated_data.get("avatar")
+
+        instance.gender = validated_data.get("gender")
+        instance.phone_numbers = validated_data.get("phone_numbers")
         instance.save()
         self.update_location(instance, validated_data)
         return instance
 
-    def update_location(self,instance, validated_data):
-        instance.location.country = validated_data.get('country')
-        instance.location.province = validated_data.get('province')
-        instance.location.city = validated_data.get('city')
-        instance.location.address = validated_data.get('address')
+    def update_location(self, instance, validated_data):
+        instance.location.country = validated_data.get("country")
+        instance.location.province = validated_data.get("province")
+        instance.location.city = validated_data.get("city")
+        instance.location.address = validated_data.get("address")
         instance.location.save()
         return instance
+
+    def update_bio(self, instance, validated_data):
+        instance.bio.bio = validated_data.get("bio")
+        # if validated_data.get("name"):
+        #     interested = instance.bio.interested.all().filter(name=validated_data.get('name')).first()
+        #     if interested:
+        #         instance.bio.interested_
+        #     instance.bio.interested_add(
+        #         self.update_interested(instance, validated_data)
+        #     )
+        instance.bio.save()
+        return instance
+
+    def update_interested(self, instance, validated_data):
+        create = Interested(name=validated_data.get("name"))
+        create.save()
+        return create
+
+
+class InterestedModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Interested
+        fields = "__all__"
+
+
+class BioModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Biodata
+        fields = "__all__"
+
 
 class LocationModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = "__all__"
 
+
 class AccountsModelSerializer(serializers.ModelSerializer):
+    bio = BioModelSerializer(read_only=True)
+
     class Meta:
         model = Accounts
         fields = "__all__"
@@ -110,22 +151,23 @@ class AccountsModelSerializer(serializers.ModelSerializer):
     location = serializers.SerializerMethodField("get_location_display")
     gender = serializers.SerializerMethodField("get_gender_display")
 
-    def get_gender_display(self,info):
+    def get_gender_display(self, info):
         if info.gender:
             return info.get_gender_display()
         return info.gender
 
-    def get_location_display(self,info):
+    def get_location_display(self, info):
         serializer = LocationModelSerializer(info.location)
         return serializer.data
+
 
 class UserModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = "__all__"
+
     accounts = serializers.SerializerMethodField("get_accounts_display")
 
-    def get_accounts_display(self,info):
+    def get_accounts_display(self, info):
         serializer = AccountsModelSerializer(info.accounts_set.first())
         return serializer.data
-

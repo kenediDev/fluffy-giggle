@@ -9,18 +9,40 @@ from django.utils.translation import gettext as _
 from love_user.serializer.user_serializer import UserSerializer, UserModelSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 
-class UpdateAPIView(APIView):
-    parser_classes = [parsers.MultiPartParser, parsers.JSONParser,]
+
+class UpdateBioAPIView(APIView):
     serializer_query = UserSerializer
 
-    def post(self,r):
+    def post(self, r):
         user = r.user
-        serializer = self.serializer_query(user,data=r.data)
-        serializer.context['args'] = 'accounts'
+        serializer = self.serializer_query(user, data=r.data)
+        serializer.context['args'] = 'bio'
         if serializer.is_valid():
             serializer.save()
-            return Response({"message": _("Accounts has been updated")},status=status.HTTP_200_OK)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"message": _("Profile has been updated")}, status=status.HTTP_200_OK
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UpdateAPIView(APIView):
+    parser_classes = [
+        parsers.MultiPartParser,
+        parsers.JSONParser,
+    ]
+    serializer_query = UserSerializer
+
+    def post(self, r):
+        user = r.user
+        serializer = self.serializer_query(user, data=r.data)
+        serializer.context["args"] = "accounts"
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"message": _("Accounts has been updated")}, status=status.HTTP_200_OK
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class UserAPIView(APIView):
     permission_classes = [
@@ -38,16 +60,18 @@ class UserAPIView(APIView):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class UserGenericAPIView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
     filter_backends = (DjangoFilterBackend,)
     filterset_class = UserFilter
 
-    def lists(self,r):
+    def lists(self, r):
         queryset = self.get_queryset()
-        serializer = self.serializer_class(queryset,many=True)
+        serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class UserModelViewSets(ModelViewSet):
     queryset = User.objects.all()

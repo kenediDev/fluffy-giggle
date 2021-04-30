@@ -35,6 +35,14 @@ class BaseLocation(serializers.Serializer):
         abstract = True
 
 
-class Base(BaseUser, BaseAccounts, BaseLocation):
+class BaseBiodata(serializers.Serializer):
+    name = serializers.CharField(max_length=225, required=False)
+    bio = serializers.CharField(max_length=225, required=False)
+
+    class Meta:
+        abstract = True
+
+
+class Base(BaseUser, BaseAccounts, BaseLocation, BaseBiodata):
     class Meta:
         abstract = True
