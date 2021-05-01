@@ -68,16 +68,6 @@ class UserGenericAPIView(generics.ListAPIView):
     filterset_class = UserFilter
 
 
-    def get_queryset(self):
-        queryset = self.queryset.filter(first_name__gt=1)
-        return queryset
-
-    def lists(self, r):
-        queryset = self.get_queryset()
-        serializer = self.serializer_class(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
 class UserModelViewSets(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
@@ -88,11 +78,17 @@ class UserModelViewSets(ModelViewSet):
             permission_classes = [
                 permissions.AllowAny,
             ]
+        elif self.action == "list":
+            permission_classes = [permissions.AllowAny,]
         else:
             permission_classes = [
                 permissions.IsAuthenticated,
             ]
         return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        queryset = self.queryset.filter(first_name__gt=1)
+        return queryset
 
     def list(self, r):
         queryset = self.get_queryset()

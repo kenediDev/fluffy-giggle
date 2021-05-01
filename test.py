@@ -3,6 +3,7 @@ import coloredlogs
 import logging
 import sys
 from love_user.test.user_test import UserTester
+from love_post.test.post_test import PostTester
 
 coloredlogs.install()
 
