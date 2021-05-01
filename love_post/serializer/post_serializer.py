@@ -3,6 +3,8 @@ from rest_framework import serializers
 from database.models.post import Post
 from love_post.serializer.base import Base
 from love_user.serializer.user_serializer import UserModelSerializer
+from babel.dates import datetime
+import timeago, datetime
 
 class PostSerializer(Base):
     def __init__(self, instance=None, data=None, **kwargs):
@@ -40,3 +42,9 @@ class PostModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = "__all__"
+    time = serializers.SerializerMethodField("get_time_display")
+
+    def get_time_display(self,post):
+        date = datetime.datetime(year=post.createAt.year,month=post.createAt.month,day=post.createAt.day,minute=post.createAt.minute,hour=post.createAt.hour,second=post.createAt.second)
+        now = datetime.datetime.now() + datetime.timedelta(seconds=60*3.4)
+        return timeago.format(date,now,'in_ID')

@@ -13,7 +13,7 @@ module.exports = merge(common, {
     publicPath: "/",
     proxy: [
       {
-        context: ["/api"],
+        context: ["/api", "/media"],
         target: "http://127.0.0.1:9000",
         secure: false,
       },

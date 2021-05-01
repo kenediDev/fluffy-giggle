@@ -42,6 +42,10 @@ class PostModelViewSets(ModelViewSet):
             permission_classes = [permissions.AllowAny,]
         return [permission() for permission in permission_classes]
 
+    def get_queryset(self):
+        queryset = self.queryset.order_by("-createAt")
+        return queryset
+
     def list(self,r):
         queryset = self.get_queryset()
         serializer = self.serializer_class(queryset,many=True)

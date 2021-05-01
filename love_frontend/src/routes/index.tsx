@@ -1,7 +1,7 @@
 import { ConnectedRouter } from "connected-react-router";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Authorization from "../component/authorization";
 import HomeComponent from "../component/home";
 import Validate from "../component/validate";
@@ -9,6 +9,7 @@ import { Userfilter, userList } from "../store/action/user.actions";
 import { ApplicationState, history } from "../store/configureStore";
 import { UserEnum } from "../store/constant/userTypes";
 import _ from "lodash";
+import { postList } from "../store/action/post.action";
 
 const array = [
   "Blueasy88 bot",
@@ -39,12 +40,8 @@ const Navbar = () => {
   });
 
   React.useEffect(() => {
-    let mount = true;
-    if (mount) {
+    if (localStorage.getItem("token")) {
       dispatch(userList(filter.text));
-      return () => {
-        mount = false;
-      };
     }
   }, [Boolean(localStorage.getItem("token"))]);
 
@@ -57,6 +54,10 @@ const Navbar = () => {
     }
     dispatch(Userfilter(selector.user, args.currentTarget.value));
     setFilter({ ...filter, text: args.currentTarget.value, show: show });
+  };
+
+  const changeRouter = (args: string) => {
+    history.push(args);
   };
   return (
     <div className="noc-navbar">
@@ -96,7 +97,9 @@ const Navbar = () => {
         </div>
       </div>
       <div className="noc-group">
-        <button className="noc-t">Sign in</button>
+        <button className="noc-t" onClick={changeRouter.bind("", "/accounts")}>
+          Sign in
+        </button>
       </div>
     </div>
   );
@@ -115,13 +118,29 @@ const Routes: React.FC = () => {
     }
   }, [Boolean(selector.user.token)]);
 
+  React.useEffect(() => {
+    let mount = true;
+    if (mount) {
+      dispatch(postList());
+    }
+  }, []);
+
   return (
     <ConnectedRouter history={history}>
       <Navbar />
       <Validate />
       <Switch>
         <Route path="/" exact={true} component={HomeComponent} />
-        <Route path="/accounts" component={Authorization} />
+        <Route
+          path="/accounts"
+          render={({ location }) =>
+            !localStorage.getItem("token") ? (
+              <Authorization />
+            ) : (
+              <Redirect to={{ pathname: "/", state: { from: location } }} />
+            )
+          }
+        />
       </Switch>
     </ConnectedRouter>
   );

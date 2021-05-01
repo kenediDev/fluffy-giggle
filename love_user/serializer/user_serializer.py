@@ -170,7 +170,7 @@ class AccountsModelSerializer(serializers.ModelSerializer):
 class UserModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ["first_name", "last_name", "accounts",]
 
     accounts = serializers.SerializerMethodField("get_accounts_display")
 

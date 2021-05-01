@@ -6,11 +6,13 @@ import store_ from "..";
 import { routerMiddleware } from "connected-react-router";
 import { createBrowserHistory } from "history";
 import { UserState } from "../constant/userTypes";
+import { PostState } from "../constant/postTypes";
 
 export const history = createBrowserHistory();
 
 export interface ApplicationState {
   user: UserState;
+  post: PostState;
 }
 
 export default function configureStore(preloadedStore?: any) {
