@@ -198,3 +198,55 @@ export const forgot = (
     return response;
   };
 };
+
+export const userList = (args: string) => {
+  return async (dispatch: Dispatch) => {
+    const response = await axios
+      .get("/api/v1/user/accounts/list/", {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Methods": "GET",
+          "Access-Control-Allow-Headers":
+            "Content-Type, Origin, Accepted, X-Requested-With, Authorization",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        params: {
+          username: args,
+        },
+        timeout: 865000,
+        responseType: "json",
+        withCredentials: true,
+        maxRedirects: 5,
+        maxContentLength: 2000,
+        validateStatus: (status: number) => status >= 200 && status < 300,
+      })
+      .then((res: AxiosResponse<any>) => {
+        dispatch({
+          type: UserEnum.LIST,
+          payload: {
+            user: res.data,
+          },
+        });
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+    return response;
+  };
+};
+
+export const Userfilter = (user: User[], args: string) => {
+  return async (dispatch: Dispatch) => {
+    const filter = user.filter(
+      (x) => x.first_name.toLowerCase().indexOf(args.toLowerCase()) > -1
+    );
+
+    return dispatch({
+      type: UserEnum.FILTER,
+      payload: {
+        soft: filter,
+      },
+    });
+  };
+};

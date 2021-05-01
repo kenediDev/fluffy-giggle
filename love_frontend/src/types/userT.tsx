@@ -1,3 +1,12 @@
+export interface Interested {
+  name: string;
+}
+
+export interface Biodata {
+  bio: string;
+  interested?: Interested[];
+}
+
 export interface Location {
   country: string;
   province: string;
@@ -9,6 +18,7 @@ export interface Accounts {
   avatar: string;
   phone_numbers: string;
   location?: Location;
+  bio: Biodata;
 }
 
 export interface User {

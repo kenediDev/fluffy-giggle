@@ -67,6 +67,11 @@ class UserGenericAPIView(generics.ListAPIView):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = UserFilter
 
+
+    def get_queryset(self):
+        queryset = self.queryset.filter(first_name__gt=1)
+        return queryset
+
     def lists(self, r):
         queryset = self.get_queryset()
         serializer = self.serializer_class(queryset, many=True)

@@ -10,10 +10,12 @@ export enum UserEnum {
   LOADING = "SERVE::USR::LOADING",
   MESSAGE = "SERVE::USR::MESSAGE",
   REVOKE = "SERVE::USR::REVOKE",
+  FILTER = "SERVE::USR::FILTER",
 }
 
 export interface UserState {
   readonly user: User[];
+  readonly soft: User[];
   readonly data: User;
   readonly message: Message;
   readonly loading: boolean;

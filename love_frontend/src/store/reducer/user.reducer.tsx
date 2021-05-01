@@ -4,6 +4,7 @@ import { UserEnum, UserState } from "../constant/userTypes";
 const initial: UserState = {
   token: "",
   user: [],
+  soft: [],
   data: {},
   message: {
     message: "",
@@ -17,6 +18,18 @@ export const userReducer: Reducer<UserState> = (state = initial, action) => {
   switch (action.type) {
     case UserEnum.LOGIN:
       return { ...state, token: action.payload.token };
+      break;
+    case UserEnum.LIST:
+      return {
+        ...state,
+        user: action.payload.user,
+      };
+      break;
+    case UserEnum.FILTER:
+      return {
+        ...state,
+        soft: action.payload.soft,
+      };
       break;
     case UserEnum.REVOKE:
       return { ...state, token: "" };
