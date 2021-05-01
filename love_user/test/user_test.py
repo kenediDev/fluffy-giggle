@@ -3,7 +3,7 @@ import json
 from rest_framework.test import APIClient
 from rest_framework import status
 from faker import Faker
-from core.utils.setup import logger, readme, writeTest
+from core.utils.setup import logger, readme, writeTest, interested
 from django.contrib.auth.models import User
 from django.urls import reverse
 import os
@@ -165,6 +165,9 @@ class UserTester(unittest.TestCase):
         data = json.dumps(
             {
                 "bio": fake.text(),
+                "name": interested["list"][random.randint(0, 1)]["choice"][
+                    random.randint(0, 10)
+                ],
             }
         )
         self.e.credentials(HTTP_AUTHORIZATION="Bearer " + readme)

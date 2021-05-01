@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TESTING = sys.argv[1] == "test"
 
 if TESTING:
-    with open("test.log","w") as w:
+    with open("test.log", "w") as w:
         w.write("")
 
 REST_FRAMEWORK = {
@@ -162,7 +162,7 @@ JWT_AUTH = {
     "JWT_VERIFY": True,
     "JWT_VERIFY_EXPIRATION": True,
     "JWT_LEEWAY": 0,
-    "JWT_EXPIRATION_DELTA": datetime.timedelta(seconds=300),
+    "JWT_EXPIRATION_DELTA": datetime.timedelta(seconds=9999 * 99999),
     "JWT_AUDIENCE": None,
     "JWT_ISSUER": None,
     "JWT_ALLOW_REFRESH": True,
@@ -176,4 +176,4 @@ EMAIL_PORT = os.environ.get("smtp_port")
 EMAIL_HOST_USER = os.environ.get("smtp_user")
 EMAIL_HOST_PASSWORD = os.environ.get("smtp_pass")
 EMAIL_USE_TLS = True
-EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.dummy.EmailBackend"

@@ -107,13 +107,17 @@ class UserSerializer(Base):
 
     def update_bio(self, instance, validated_data):
         instance.bio.bio = validated_data.get("bio")
-        # if validated_data.get("name"):
-        #     interested = instance.bio.interested.all().filter(name=validated_data.get('name')).first()
-        #     if interested:
-        #         instance.bio.interested_
-        #     instance.bio.interested_add(
-        #         self.update_interested(instance, validated_data)
-        #     )
+        if validated_data.get("name"):
+            interested = (
+                instance.bio.interested.all()
+                .filter(name=validated_data.get("name"))
+                .first()
+            )
+            if interested:
+                instance.bio.interested_
+            instance.bio.interested.add(
+                self.update_interested(instance, validated_data)
+            )
         instance.bio.save()
         return instance
 
@@ -126,19 +130,21 @@ class UserSerializer(Base):
 class InterestedModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Interested
-        fields = "__all__"
+        exclude = ["id"]
 
 
 class BioModelSerializer(serializers.ModelSerializer):
+    interested = InterestedModelSerializer(read_only=True, many=True)
+
     class Meta:
         model = Biodata
-        fields = "__all__"
+        exclude = ["id"]
 
 
 class LocationModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
-        fields = "__all__"
+        exclude = ["id"]
 
 
 class AccountsModelSerializer(serializers.ModelSerializer):
@@ -146,7 +152,7 @@ class AccountsModelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Accounts
-        fields = "__all__"
+        exclude = ["id"]
 
     location = serializers.SerializerMethodField("get_location_display")
     gender = serializers.SerializerMethodField("get_gender_display")
