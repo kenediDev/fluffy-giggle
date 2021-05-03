@@ -8,109 +8,103 @@ $background: #988e8e26
 html,body
     padding: 0
     margin: 0
-    font-family: 'Fira Sans', sans-serif 
+    font-family: 'Fira Sans', sans-serif
 
 p,a,span
     font-family: 'Sora', sans-serif
 
 .noc-navbar
-    height: 75px
+    height: 60px
+    box-shadow: 0px 0px 10px -7px rgba(0,0,0,0.75)
     background-color: white
-    padding-left: 20px
-    padding-right: 20px
+    margin-bottom: 10px
     display: flex
     align-items: center
-    justify-content: space-between
-    box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75)
-    -webkit-box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75)
-    -moz-box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75)
-    .noc-input
-      width: 400px
-      height: 30px
-      display: flex
-      align-items: center
-      position: relative
-      .noc-navbar-input-dropdown
-          position: absolute
-          background-color: white
-          margin-top: 36px
-          width: 100%
-          box-shadow: 0px 0px 10px -7px rgba(0,0,0,0.75)
-          border-radius: 15px
-          padding: 15px 0px 0px 0px
-          animation: navbar-filter-animation 2s forwards
-          .noc-navbar-dropdown-content
-              padding: 0px 8px 8px 8px
-              height: 300px
-              overflow-y: auto
-              word-wrap: break-all
-              word-break: break-word
-              .noc-navbar-dropdown-acc
-                  display: flex
-                  margin-bottom: 8px
-                  cursor: pointer
-                  &:hover
-                      background-color: $background
-                      padding: 0px 5px 0px 5px
-                  img
-                      width: 32px
-                      height: 32px
-                      border-radius: 80px
-                      background-size: cover
-                      background-position: center
-                      background-repeat: no-repeat
-                  .noc-navbar-dropdown-acc-content
-                      margin-left: 10px
-                      width: 80%
-                      overflow: hidden
-                      text-overflow: ellipsis
-                      white-space: nowrap
-                      a
-                          text-decoration: none
-                          color: $color
-                          font-size: 12px
-                          display: block
-                          cursor: pointer
-                      span
-                          font-size: 10px
-                          cursor: pointer
-      input
-          width: 100% !important
-          box-shadow: 0px 0px 10px -8px rgba(0,0,0,0.75)
-          border: none
-          outline: none
-          padding-left: 15px
-          padding-right: 15px
-          border-bottom-left-radius: 15px
-          border-top-left-radius: 15px
-      .noc-btn-input
-          width: 40px
-          height: 100% !important
-          border: none
-          border-top-right-radius: 10px
-          border-bottom-right-radius: 10px
-          box-shadow: 0px 0px 10px -7px rgba(0,0,0,0.75)
-          cursor: pointer
+    justify-content: space-around
     .noc-brand
-        font-weight: bold
-        font-family: 'Dancing Script', cursive
+        font-family: "Dancing Script", sans-serif
         font-size: 30px
         color: tomato
-    .noc-t
-        outline: none
-        border: none
-        cursor: pointer
+    .noc-input
+        width: 400px
+        display: flex
+        align-items: center
+        box-shadow: 0px 0px 10px -7px rgba(0,0,0,0.75)
         height: 30px
-        width: 100px
-        border-radius: 20px
-        background-color: tomato
-        color: white
-        font-weight: bold
-        box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75)
-        -webkit-box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75)
-        -moz-box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.75)
+        border-radius: 10px
+        position: relative
+        input
+            width: 100%
+            border: none
+            outline: none
+            padding: 0px 15px 0px 15px
+        .noc-btn-input
+            width: 40px
+            height: 30px
+            border-top-right-radius: 10px
+            border-bottom-right-radius: 10px
+            border: none
+            outline: none
+            color: tomato
+            background-color: white
+            box-shadow: 0px 0px 10px -7px rgba(0,0,0,0.75)
+    .noc-group
+        .noc-t
+            width: 120px
+            height: 30px
+            background-color: tomato
+            color: white
+            font-family: "Sora", sans-serif
+            border-radius: 10px
+            border: none
+            outline: none
+            cursor: pointer
+            box-shadow: 0px 0px 10px -7px rgba(0,0,0,0.75)
+            text-transform: capitalize
 
+// Navbar Dropdown
 
+.noc-navbar-input-dropdown
+    position: absolute
+    width: 100%
+    background-color: white
+    box-shadow: 0px 0px 10px -7px rgba(0,0,0,0.75)
+    top: 40px
+    border-radius: 10px
+    display: flex
+    align-items: center
+    justify-content: center
+    .noc-navbar-dropdown-list
+        width: 96%
+        max-height: 400px
+        overflow-y: auto
+        .noc-navbar-dropdown-acc
+            display: flex
+            align-items: center
+            margin-bottom: 8px
+            img
+                width: 32px
+                height: 32px
+                border-radius: 80%
+            .noc-navbar-dropdown-acc-content
+                margin-left: 8px
+                width: 80%
+                overflow: hidden
+                text-overflow: ellipsis
+                white-space: nowrap
+                line-height: 12px
+                a
+                    display: block
+                    font-size: 12px
+                    color: black
+                    text-decoration: none
+                    font-family: "Sora", sans-serif
+                    &:hover
+                        text-decoration: underline
+                        color: $color
+                span
+                    font-size: 10px
+                    font-family: "Sora", sans-serif
 
 // Authorization
 
@@ -120,7 +114,6 @@ p,a,span
     justify-content: center
     width: 100%
     height: 80vh
-
 
 .noc-authorization
     background-color: white
@@ -143,7 +136,7 @@ p,a,span
             outline: none
     #noc-field
         margin-top: 15px
-        display: flex 
+        display: flex
         justify-content: space-around
         align-items: center
 
@@ -161,7 +154,6 @@ p,a,span
     color: white
     font-weight: bold
     cursor: pointer
-
 
 .noc-link
     text-decoration: none
@@ -203,7 +195,7 @@ p,a,span
         &:last-child
             width: 75%
             background-color: white
-            
+
 .noc-post
     margin-bottom: 10px
     padding: 5px
@@ -221,7 +213,7 @@ p,a,span
             margin-left: 6px
             line-height: 12px
             a
-                font-size: 16px 
+                font-size: 16px
                 font-weight: bold
                 text-decoration: none
                 color: black
@@ -241,20 +233,17 @@ p,a,span
         span
             font-size: 12.8px
 
-        
-
-@keyframes validate 
-  from 
-     bottom: -1200px
-  to 
-     bottom: 16px
-    
+@keyframes validate
+    from
+        bottom: -1200px
+    to
+        bottom: 16px
 
 @keyframes navbar-filter-animation
-  from
-      opacity: 0
-  to
-      opacity: 1
+    from
+        opacity: 0
+    to
+        opacity: 1
 
 .hidden
-  display: none
+    display: none

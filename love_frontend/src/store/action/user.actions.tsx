@@ -202,7 +202,7 @@ export const forgot = (
 export const userList = (args: string) => {
   return async (dispatch: Dispatch) => {
     const response = await axios
-      .get("/api/v1/user/accounts/list/", {
+      .get("/api/v1/user/", {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Methods": "GET",
@@ -212,7 +212,7 @@ export const userList = (args: string) => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         params: {
-          username: args,
+          first_name: args,
         },
         timeout: 865000,
         responseType: "json",

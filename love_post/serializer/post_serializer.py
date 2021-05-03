@@ -1,6 +1,6 @@
 import os
 from rest_framework import serializers
-from database.models.post import Post
+from database.models.post import Comment, Post
 from love_post.serializer.base import Base
 from love_user.serializer.user_serializer import UserModelSerializer
 from babel.dates import datetime
@@ -25,6 +25,9 @@ class PostSerializer(Base):
         return create
 
     def update(self, ins, val):
+        if self.context:
+            if self.context['args'] == 'comment':
+                return self.create_comment(ins,val)
         if val.get('photo'):
             if ins.photo:
                 split = str(ins.photo).split("/")
@@ -34,6 +37,13 @@ class PostSerializer(Base):
         ins.content = val.get('content')
         ins.save()
         return ins
+
+    def create_comment(self,ins, val):
+        create = Comment(comment=val.get('comment'),user=val.get('author'))
+        create.save()
+        ins.comment.add(create)
+        return ins
+
 
 
 class PostModelSerializer(serializers.ModelSerializer):

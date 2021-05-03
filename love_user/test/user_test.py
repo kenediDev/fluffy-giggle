@@ -96,26 +96,39 @@ class UserTester(unittest.TestCase):
         urls = reverse("user-generic-list")
         self.e.credentials(HTTP_AUTHORIZATION="Bearer " + readme)
         response = self.e.get(urls, content_type="application/json")
-        writeTest("- User List : \n")
+        writeTest("- User List Generics : \n")
         writeTest(str(response.data[0:2]))
         writeTest("\n")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertNotEqual(response.data, None)
-        logger.info("User List")
+        logger.info("User List Generics")
 
     @unittest.skipIf(not readme, "Skip! missing token")
     def test_usr_filter_generic_list(self):
-        user = User.objects.last()
+        user = User.objects.filter(first_name__gt=1).last()
         urls = reverse("user-generic-list")
-        urls_prefix = "%s?username=%s" % (urls, user.username)
+        urls_prefix = "%s?first_name=%s" % (urls, user.first_name)
         self.e.credentials(HTTP_AUTHORIZATION="Bearer " + readme)
         response = self.e.get(urls_prefix, content_type="application/json")
-        writeTest("- User List Filter : \n")
+        writeTest("- User List Generics Filter : \n")
         writeTest(str(response.data))
         writeTest("\n")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertNotEqual(response.data, None)
         logger.info("User List Generics - Filter")
+
+    def test_usr_list(self):
+        urls = reverse("user-list")
+        response = self.e.get(urls, content_type="application/json")
+        writeTest("- User List: \n")
+        if len(response.data) < 1:
+            writeTest(str(response.data))
+        else:
+            writeTest(str(response.data[0:1]))
+        writeTest("\n")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        logger.info("User List")
 
     @unittest.skipIf(not readme, "Skip! missing token")
     def test_usr_update(self):
@@ -141,7 +154,10 @@ class UserTester(unittest.TestCase):
         self.assertNotEqual(response.data, None)
         logger.info("Update Accounts")
 
-    @unittest.skipIf(not readme and User.objects.filter(first_name__gt=1).count() == 0, "Skip! missing token or User not have first_name")
+    @unittest.skipIf(
+        not readme and User.objects.filter(first_name__gt=1).count() == 0,
+        "Skip! missing token or User not have first_name",
+    )
     def test_usr_detail(self):
         user = User.objects.filter(first_name__gt=1).first()
         urls = reverse("user-detail", args=[user.id])

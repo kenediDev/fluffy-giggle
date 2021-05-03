@@ -9,6 +9,12 @@ class BasePost(serializers.Serializer):
     class Meta:
         abstract = True
 
-class Base(BasePost):
+class BaseComment(serializers.Serializer):
+    comment = serializers.CharField(required=False, max_length=225)
+
+    class Meta:
+        abstract = True
+
+class Base(BasePost, BaseComment):
     class Meta:
         abstract = True

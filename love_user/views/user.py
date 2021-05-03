@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
 from love_user.serializer.user_serializer import UserSerializer, UserModelSerializer
-from django_filters.rest_framework import DjangoFilterBackend
+from django_filters.rest_framework import DjangoFilterBackend, OrderingFilter
 
 
 class UpdateBioAPIView(APIView):
@@ -16,7 +16,7 @@ class UpdateBioAPIView(APIView):
     def post(self, r):
         user = r.user
         serializer = self.serializer_query(user, data=r.data)
-        serializer.context['args'] = 'bio'
+        serializer.context["args"] = "bio"
         if serializer.is_valid():
             serializer.save()
             return Response(
@@ -64,7 +64,9 @@ class UserAPIView(APIView):
 class UserGenericAPIView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
-    filter_backends = (DjangoFilterBackend,)
+    filter_backends = [
+        DjangoFilterBackend,
+    ]
     filterset_class = UserFilter
 
 
@@ -79,7 +81,9 @@ class UserModelViewSets(ModelViewSet):
                 permissions.AllowAny,
             ]
         elif self.action == "list":
-            permission_classes = [permissions.AllowAny,]
+            permission_classes = [
+                permissions.AllowAny,
+            ]
         else:
             permission_classes = [
                 permissions.IsAuthenticated,
@@ -91,7 +95,7 @@ class UserModelViewSets(ModelViewSet):
         return queryset
 
     def list(self, r):
-        queryset = self.get_queryset()
+        queryset = self.get_queryset().filter(first_name__gt=1)
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
